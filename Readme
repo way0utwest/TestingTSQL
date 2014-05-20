@@ -1,0 +1,3 @@
+Get Testing with T-SQL
+
+Presentation from Red Gate on testing your database T-SQL code. This covers the general why test and what, along with how this fits in the dellivery pipeline. It also covers tsqlt and specific ypes of tests.
