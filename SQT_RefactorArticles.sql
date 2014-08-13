@@ -9,12 +9,19 @@
 
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
+--          Check Meta Data Demo
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
 --          Start Test  
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
  -- create test
  -- class: Articles
- -- Name: check table meta data
+ -- Name: Articles_Check_metadata
 
   --Assemble
  CREATE TABLE Articles.Expected
@@ -90,12 +97,12 @@ EXEC tsqlt.AssertResultSetsHaveSameMetaData @expectedCommand = N'select * from A
 
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
---          Start Test  
+--          Alter Test  
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
  -- create test
  -- class: Articles
- -- Name: check table meta data
+ -- Name: Articles_Check_metadata
 
   --Assemble
  CREATE TABLE Articles.Expected
@@ -130,12 +137,24 @@ EXEC tsqlt.AssertResultSetsHaveSameMetaData @expectedCommand = N'select * from A
 
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
+-- END       Check Meta Data Demo
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--          Isolate function Demo
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
 --          Start Test  - Test our function first
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
  -- create test
  -- class: Articles
- -- Name: check seconds calculation from article
+ -- Name: SetArticlesReadingEstimate_CheckCalculation
 
   --Assemble
   DECLARE @article VARCHAR(MAX)
@@ -143,7 +162,7 @@ EXEC tsqlt.AssertResultSetsHaveSameMetaData @expectedCommand = N'select * from A
 	, @actresult int
   SELECT @article = REPLICATE('alpha ', 1000)
 
-  SELECT @expresult = 1000
+  SELECT @expresult = 4
 
   -- act
   SELECT @actresult = dbo.calculateEstimateOfReadingTime(@article)
@@ -215,7 +234,8 @@ SELECT TOP 10
 
  -- create test
  -- class: Articles
- -- Name: Update Reading Time
+  -- Name: SetArticlesReadingEstimate_CheckCalculation
+
 
  -- Assemble: 
  
