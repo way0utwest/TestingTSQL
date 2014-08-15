@@ -444,7 +444,12 @@ exec tSQLt.NewTestClass @ClassName = N'v_articles';
 exec tSQLt.NewTestClass @ClassName = N'CITests';
 exec tSQLt.NewTestClass @ClassName = N'AcceptanceTests';
 
+-- execute by class
+exec tSQLt.RunTestClass @TestClassName = N'Blogs' -- nvarchar(max)
 
 
 
- 
+-- version
+ SELECT top 10
+   *
+  FROM tsqlt.Info() I

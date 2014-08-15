@@ -27,10 +27,20 @@ EXEC tSQLt.RunTestClass @TestClassName = N'SQLCop' -- nvarchar(max)
 
 
 
-
-
 -- rename
 EXEC sp_rename 'sp_GetArticles', 'uspGetArticles';
+
+-- drop recreate
+/*
+DROP PROCEDURE sp_GetArticles
+GO
+CREATE PROCEDURE sp_GetArticles
+AS
+    SELECT  *
+    FROM    dbo.Articles
+
+GO
+*/
 
 
 
