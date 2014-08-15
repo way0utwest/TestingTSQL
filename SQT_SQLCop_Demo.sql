@@ -47,5 +47,6 @@ GO
 
 -- retest
 -- use SQL Test or this
-EXEC tSQLt.RunTestClass @TestClassName = N'SQLCop' -- nvarchar(max)
-
+EXEC tSQLt.Run
+ @TestName = N'SQLCop.test Procedures Named SP_' -- nvarchar(max)
+;
