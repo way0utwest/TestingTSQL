@@ -1,3 +1,19 @@
+/*
+Get Testing with tsqlt - Isolate Sproc Demo
+
+Copyright 2014, Steve Jones and Red Gate Software
+
+This code is provided as is for demonstration purposes. It may not be suitable for
+your environment. Please test this on your own systems. This code may not be republished 
+or redistributed by anyone without permission.
+You are free to use this code inside of your own organization.
+
+
+Description:
+This script will build a function to calculate a value, then test that. A procedure
+will then be written to use this function, but we need to isolate the procedure from
+the function for a good test.
+*/
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
 --          Isolate Sproc Demo
@@ -25,7 +41,7 @@
 
   -- act
   SELECT @actresult = dbo.calculateEstimateOfReadingTime(@article)
-  SELECT @actresult 'act', @expresult 'exp', len(@article), @article 'art'
+--  SELECT @actresult 'act', @expresult 'exp', len(@article), @article 'art'
 
   -- assert
   EXEC tsqlt.AssertEquals
@@ -71,11 +87,13 @@ UPDATE
 GO
 
 -- quick developer check
-SELECT TOP 10
+select top 10
     ReadingTimeEstimate
   , *
-  FROM
-    dbo.Articles A;
+  from
+    dbo.Articles A
+  where
+    ArticlesID = 1;
 
 EXEC dbo.SetArticlesReadingEstimate @articleid = 1;
 go
@@ -83,9 +101,10 @@ select TOP 10
     ReadingTimeEstimate
   , *
   FROM
-    dbo.Articles A;
- go
-
+    dbo.Articles A
+  where
+    ArticlesID = 1;
+go
 
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
