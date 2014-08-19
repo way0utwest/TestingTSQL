@@ -1,14 +1,24 @@
--- Red Gate Software Demo
---
--- SQT - SQL Cop standards
--- http://sqlcop.lessthandot.com
---
--- This code is provided as is with no warranty implied.
--- Copyright 2014 Steve Jones
---
+/* Red Gate Software Demo
+
+SQT - SQL Cop standards
+http://sqlcop.lessthandot.com
+
+This code will create a procedure that violates a SQLCop test. It will then refactor the procedure
+to pass the test.
+
+Requires the tsqlt framework.
+
+Copyright 2014, Steve Jones and Red Gate Software
+
+This code is provided as is for demonstration purposes. It may not be suitable for
+your environment. Please test this on your own systems. This code may not be republished 
+or redistributed by anyone without permission.
+You are free to use this code inside of your own organization.
+
+*/
 
 -- create a new proc
-USE SimpleTalkDev;
+USE SimpleTalkDev_Steve;
 GO
 
 CREATE PROCEDURE sp_GetArticles
@@ -27,6 +37,12 @@ EXEC tSQLt.RunTestClass @TestClassName = N'SQLCop' -- nvarchar(max)
 
 
 
+-- Failed a SQL Cop test
+
+
+
+
+
 -- rename
 EXEC sp_rename 'sp_GetArticles', 'uspGetArticles';
 
@@ -34,7 +50,7 @@ EXEC sp_rename 'sp_GetArticles', 'uspGetArticles';
 /*
 DROP PROCEDURE sp_GetArticles
 GO
-CREATE PROCEDURE sp_GetArticles
+CREATE PROCEDURE uspGetArticles
 AS
     SELECT  *
     FROM    dbo.Articles
