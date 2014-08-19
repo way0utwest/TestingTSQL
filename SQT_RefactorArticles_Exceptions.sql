@@ -53,6 +53,7 @@ exec  SetArticlesReadingEstimate;
   EXEC tsqlt.AssertEqualsTable @Expected = N'Articles.expected',
     @Actual = N'dbo.articles',
     @FailMsg = N'The reading estimate is incorrect.';
+
   
 
 
@@ -71,7 +72,7 @@ exec  SetArticlesReadingEstimate;
 --------------------------------------------------------------------------
 
 -- refactor procedure:
--- include errorhandling
+-- Ignore a lack of a parameter
 ALTER procedure SetArticlesReadingEstimate
 	@articleid as int = null
 /*
@@ -83,37 +84,41 @@ DECLARE @t TIME
  , @a VARCHAR(max)
 
 
--- throw error if no parameter
-if @articleid is null
-  select @articleid = articlesid from (select top(1) articlesid from articles) a;
+if @articleid is not null
+  begin
+    select
+        @articleid = articlesid
+      from
+        ( select top ( 1 )
+              articlesid
+            from
+              articles
+        ) a;
 
-select
-   @a = article
- FROM
-    dbo.Articles A
- where
-   ArticlesID = @articleid;
+    select
+        @a = article
+      from
+        dbo.Articles A
+      where
+        ArticlesID = @articleid;
 
-select
-   @t = CONVERT(TIME, DATEADD(SECOND,
-                               dbo.calculateEstimateOfReadingTime(@a),
-                               0))
+    select
+        @t = convert(time, dateadd(second,
+                                   dbo.calculateEstimateOfReadingTime(@a), 0))
 
-update
-   dbo.Articles
- set
-    ReadingTimeEstimate = @t
- where
-    ArticlesID = @articleid;
+    update
+        dbo.Articles
+      set
+        ReadingTimeEstimate = @t
+      where
+        ArticlesID = @articleid;
+  end
 
 GO
 
 
 -- run test
 -- fails
-
-
-
 
 
 
@@ -161,8 +166,9 @@ GO
 exec SetArticlesReadingEstimate;
 
 -- fix test
-  -- Assemble
-  -- Act
+
+-- Assemble
+-- Act
   exec tSQLt.ExpectException
     @ExpectedMessage = 'ArticlesID must be supplied.';
 
