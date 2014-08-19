@@ -1,3 +1,10 @@
+-- SQT_Build_MetaDataCheck
+--
+-- Description:
+-- This script will look at all the tables in your database and then generate the tsqlt
+-- code to test for metadata for all tables. This is useful in refactoring to catch changes
+-- to the schema that might impact other systems.
+
 declare MyCurs cursor 
  for
   select
